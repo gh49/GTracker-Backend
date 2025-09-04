@@ -3,13 +3,18 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import pool from "../db";
 import { GString } from "../utils/stringUtils";
-import { PublicUserData, UserData, UserLoginRequestBody } from "./types";
+import {
+  PublicUserData,
+  UserData,
+  UserLoginRequestBody,
+  UserSignUpRequestBody,
+} from "./types";
 
 export const signup = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({ message: "Request is missing the body" });
   }
-  const { email, username, fullName, password }: UserLoginRequestBody =
+  const { email, username, fullName, password }: UserSignUpRequestBody =
     req.body;
 
   if (!email || !username || !fullName || !password) {
@@ -72,7 +77,10 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { identifier, password } = req.body; // 'identifier' can be email or username
+  if (!req.body) {
+    return res.status(400).json({ message: "Request is missing the body" });
+  }
+  const { identifier, password }: UserLoginRequestBody = req.body;
 
   if (!identifier || !password) {
     return res.status(400).json({ message: "Missing identifier or password" });
@@ -81,7 +89,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
       "SELECT * FROM users WHERE email = $1 OR username = $1",
-      [identifier]
+      [identifier.toLowerCase().trim()]
     );
 
     if (result.rows.length === 0) {

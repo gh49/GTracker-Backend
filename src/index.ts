@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
+import taskRoutes from "./routes/tasksRoutes";
+import categoriesRoutes from "./routes/categoriesRoutes";
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/categories", categoriesRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
