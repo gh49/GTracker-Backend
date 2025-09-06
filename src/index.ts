@@ -1,5 +1,5 @@
-import dns from 'dns';
-dns.setDefaultResultOrder?.('ipv4first');
+import dns from "dns";
+dns.setDefaultResultOrder?.("ipv4first");
 
 import express from "express";
 import cors from "cors";
@@ -9,6 +9,9 @@ import taskRoutes from "./routes/tasksRoutes";
 import categoriesRoutes from "./routes/categoriesRoutes";
 
 dotenv.config();
+
+const u = new URL(process.env.DATABASE_URL!);
+console.log("DB target:", u.hostname, "port:", u.port);
 
 const app = express();
 
