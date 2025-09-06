@@ -165,7 +165,7 @@ export const addTaskProgress = async (req: AuthRequest, res: Response) => {
     return res.status(201).json({ progress: ins.rows[0], status: "created" });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
 
@@ -223,6 +223,6 @@ export const getTasksByDate = async (req: AuthRequest, res: Response) => {
     return res.json({ date: dateStr, tasks: rows });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };

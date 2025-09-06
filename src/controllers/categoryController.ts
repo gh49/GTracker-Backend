@@ -50,7 +50,7 @@ export const addCategory = async (req: AuthRequest, res: Response) => {
       return res.status(409).json({ message: "Category name already exists" });
     }
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
 
@@ -123,7 +123,7 @@ export const editCategory = async (req: AuthRequest, res: Response) => {
       return res.status(409).json({ message: "Category name already exists" });
     }
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
 
@@ -154,7 +154,7 @@ export const deleteCategory = async (req: AuthRequest, res: Response) => {
     return res.json({ deleted: rows[0] });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
 
@@ -174,6 +174,6 @@ export const getAllCategories = async (req: Request, res: Response) => {
     return res.json({ categories: rows });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };

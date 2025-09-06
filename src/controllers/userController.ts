@@ -72,7 +72,7 @@ export const signup = async (req: Request, res: Response) => {
     res.status(201).json({ user });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${err}` });
   }
 };
 
@@ -116,6 +116,6 @@ export const login = async (req: Request, res: Response) => {
     res.json({ token, userData: userWithoutPassword });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${err}` });
   }
 };

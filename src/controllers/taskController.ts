@@ -29,7 +29,7 @@ export const getAllUserTasks = async (req: AuthRequest, res: Response) => {
     return res.json({ tasks: rows });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
 
@@ -185,7 +185,7 @@ export const editTask = async (req: AuthRequest, res: Response) => {
     res.json({ task: rows[0] });
   } catch (e) {
     console.error(e);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
 
@@ -214,6 +214,6 @@ export const deleteTask = async (req: AuthRequest, res: Response) => {
     return res.json({ deleted: rows[0] });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: `Server error: ${e}` });
   }
 };
